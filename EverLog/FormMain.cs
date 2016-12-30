@@ -29,13 +29,13 @@ namespace EverLog
                 int year;
                 if (!int.TryParse(txtYear.Text, out year))
                 {
-                    txtLog.Text += "Invalid year number";
+                    txtLog.Text += "Invalid year number\r\n";
                     return;
                 }
                 var everLog = GenEverLog.CreateYear(year);
                 ClipboardHelper.CopyToClipboard(everLog.Item1.ToString(), everLog.Item2.ToString());
 
-                txtLog.Text += "Added HTML to Clipboard";
+                txtLog.Text += "Added HTML to Clipboard\r\n";
             }
             catch (Exception ex)
             {
