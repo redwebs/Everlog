@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverLog", "EverLog\EverLog.csproj", "{3BBA7835-74D7-4021-A546-B69E09A855BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogCalLib", "GoogCalLib\GoogCalLib.csproj", "{405C3103-89B7-46E9-B0D8-26FDCC55B1B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{3BBA7835-74D7-4021-A546-B69E09A855BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BBA7835-74D7-4021-A546-B69E09A855BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BBA7835-74D7-4021-A546-B69E09A855BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405C3103-89B7-46E9-B0D8-26FDCC55B1B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405C3103-89B7-46E9-B0D8-26FDCC55B1B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405C3103-89B7-46E9-B0D8-26FDCC55B1B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405C3103-89B7-46E9-B0D8-26FDCC55B1B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4415CCDC-092B-4E38-8DA5-FA6FD5F0551E}
 	EndGlobalSection
 EndGlobal
