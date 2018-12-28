@@ -45,9 +45,9 @@ namespace GoogCalLib
             try
             {
                 if (string.IsNullOrEmpty(userName))
-                    throw new ArgumentNullException("userName");
+                    throw new ArgumentNullException(nameof(userName));
                 if (string.IsNullOrEmpty(clientSecretJson))
-                    throw new ArgumentNullException("clientSecretJson");
+                    throw new ArgumentNullException(nameof(clientSecretJson));
                 if (!File.Exists(clientSecretJson))
                     throw new Exception("clientSecretJson file does not exist.");
 
@@ -77,16 +77,16 @@ namespace GoogCalLib
             try
             {
                 if (string.IsNullOrEmpty(userName))
-                    throw new ArgumentNullException("userName");
+                    throw new ArgumentNullException(nameof(userName));
                 if (string.IsNullOrEmpty(clientSecretJson))
-                    throw new ArgumentNullException("clientSecretJson");
+                    throw new ArgumentNullException(nameof(clientSecretJson));
                 if (!File.Exists(clientSecretJson))
                     throw new Exception("clientSecretJson file does not exist.");
 
                 // These are the scopes of permissions you need. It is best to request only what you need and not all of them               
                 using (var stream = new FileStream(clientSecretJson, FileMode.Open, FileAccess.Read))
                 {
-                    string credPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    var credPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                     credPath = Path.Combine(credPath, ".credentials/", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
 
                     // Requesting Authentication or loading previously stored authentication for userName
@@ -116,7 +116,7 @@ namespace GoogCalLib
             try
             {
                 if (credential == null)
-                    throw new ArgumentNullException("credential");
+                    throw new ArgumentNullException(nameof(credential));
 
                 // Create Calendar API service.
                 return new CalendarService(new BaseClientService.Initializer()

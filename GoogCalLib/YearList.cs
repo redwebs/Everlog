@@ -19,7 +19,7 @@ namespace GoogCalLib
             var timeMin = new DateTime(targetYear, 1, 1).ToUniversalTime();
             var timeMax = timeMin.AddYears(1).AddSeconds(-1);
 
-            if (!GetService(calendarId))
+            if (!GetService(calendarId, CalendarService.Scope.CalendarEventsReadonly))
             {
                 return new List<CalendarItem>();
             }
@@ -125,7 +125,7 @@ namespace GoogCalLib
             return itemList;
         }
 
-        private static bool GetService(string id)
+        private static bool GetService(string id, string scope)
         {
             try
             {
@@ -133,7 +133,8 @@ namespace GoogCalLib
 
                 _service =
                     GoogCalLib.Oauth2.GetCalendarService(ClientSecretPath, id,
-                        new[] { CalendarService.Scope.Calendar });
+                        new[] { scope });
+//                        new[] { CalendarService.Scope.CalendarEventsReadonly });
 
                 if (_service == null)
                 {
