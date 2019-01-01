@@ -222,7 +222,7 @@ namespace GoogCalLib
                 System.Reflection.PropertyInfo piShared = (request.GetType()).GetProperty(property.Name);
                 var prop = property.GetValue(optional, null);
 
-                Log.Debug($"ApplyOptionalParms: {property.Name} = {prop ?? "NULL"}");
+                //Log.Debug($"ApplyOptionalParms: {property.Name} = {prop ?? "NULL"}");
 
                 if (piShared != null && prop != null) // TODO Test that we do not add values for items that are null
                 {

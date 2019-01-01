@@ -24,5 +24,33 @@ namespace GoogCalLib
         public string SourceUrl { get; set; }
         public bool EndTimeUnspecified { get; set; }
         public DateTime OriginalStartTime { get; set; }
+
+        public CalendarItem()
+        {
+        }
+
+        public CalendarItem(CalendarItem item)
+        {
+            Summary = item.Summary;
+            Description = item.Description;
+            CalendarOrdinal = item.CalendarOrdinal;
+            HasTime = item.HasTime;
+            StartDateTime = item.StartDateTime;
+            EndDateTime = item.EndDateTime;
+            CreatedDateTime = item.CreatedDateTime;
+            UpatedDateTime = item.UpatedDateTime;
+            CreatorDisplayName = item.CreatorDisplayName;
+            CreatorEmail = item.CreatorEmail;
+            Etag = item.Etag;
+            HtmlLink = item.HtmlLink;
+            IcalUid = item.IcalUid;
+            Id = item.Id;
+            Location = item.Location;
+            RecurringEventId = item.RecurringEventId;
+            SourceTitle = item.SourceTitle;
+            SourceUrl = item.SourceUrl;
+            EndTimeUnspecified = item.EndTimeUnspecified;
+            OriginalStartTime = item.OriginalStartTime;
+        }
     }
 }

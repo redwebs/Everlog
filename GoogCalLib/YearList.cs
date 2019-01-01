@@ -84,24 +84,6 @@ namespace GoogCalLib
                     OriginalStartTime = DateTime.MinValue
                 };
 
-                if (calEvent.Start.DateTime != null)
-                {
-                    item.HasTime = true;
-                    item.StartDateTime = (DateTime)calEvent.Start.DateTime;
-                }
-                else
-                {
-                    item.HasTime = false;
-                    item.StartDateTime = DateTime.Parse(targetYear + calEvent.Start.Date.Remove(0, 4));
-                }
-                if (calEvent.End.DateTime != null)
-                {
-                    item.EndDateTime = (DateTime)calEvent.End.DateTime;
-                }
-                else
-                {
-                    item.EndDateTime = DateTime.Parse(targetYear + calEvent.End.Date.Remove(0, 4));
-                }
                 if (calEvent.Creator != null)
                 {
                     item.CreatorDisplayName = calEvent.Creator.DisplayName;
@@ -119,10 +101,69 @@ namespace GoogCalLib
                     item.OriginalStartTime = calEvent.OriginalStartTime.DateTime.Value;
                 }
 
+                if (calEvent.Start.DateTime != null)
+                {
+                    item.HasTime = true;
+                    item.StartDateTime = (DateTime)calEvent.Start.DateTime;
+                }
+                else
+                {
+                    item.HasTime = false;
+                    item.StartDateTime = DateTime.Parse(targetYear + calEvent.Start.Date.Remove(0, 4));
+                }
+                if (calEvent.End.DateTime != null)
+                {
+                    item.EndDateTime = (DateTime)calEvent.End.DateTime;
+                }
+                else
+                {
+                    item.EndDateTime = DateTime.Parse(targetYear + calEvent.End.Date.Remove(0, 4));
+
+                    if (item.EndDateTime - item.StartDateTime > TimeSpan.FromDays(1f))
+                    {
+                        // This is a multiday event
+                        itemList.AddRange(AddMultidays(item));
+                    }
+                }
                 itemList.Add(item);
             }
-
             return itemList;
+        }
+
+        private static List<CalendarItem> AddMultidays(CalendarItem item)
+        {
+            Log.Debug($"AddMultidays input: Start: {item.StartDateTime} End: {item.EndDateTime}");
+
+            var multiList = new List<CalendarItem>();
+            var processing = true;
+            var nextDayStart = item.StartDateTime;
+            var dayCntr = 2;
+
+            while (processing)
+            {
+                nextDayStart = nextDayStart.AddDays(1);
+
+                if (nextDayStart >= item.EndDateTime)
+                {
+                    // Clean up the input end date and summary
+                    item.Summary = $"{item.Summary} - Day 1";
+                    item.EndDateTime = item.StartDateTime.AddDays(1);
+                    processing = false;
+                }
+                else
+                {
+                    var nextDay = new CalendarItem(item)
+                    {
+                        StartDateTime = nextDayStart,
+                        EndDateTime = nextDayStart.AddDays(1),
+                        Summary = $"{item.Summary} - Day {dayCntr++}"
+                    };
+                    Log.Debug($"AddMultidays entry: Start: {nextDay.StartDateTime} End: {nextDay.EndDateTime}");
+                    multiList.Add(nextDay);
+                }
+            }
+            Log.Debug($"AddMultidays input changed: Start: {item.StartDateTime} End: {item.EndDateTime}");
+            return multiList;
         }
 
         private static bool GetService(string id, string scope)
@@ -131,10 +172,8 @@ namespace GoogCalLib
             {
                 Log.Debug($"Execute OAuth2.GetCalendarService {id} ************************************");
 
-                _service =
-                    GoogCalLib.Oauth2.GetCalendarService(ClientSecretPath, id,
-                        new[] { scope });
-//                        new[] { CalendarService.Scope.CalendarEventsReadonly });
+                // Only get the permissions needed. Scope.Calendar will give all read / write
+                _service = Oauth2.GetCalendarService(ClientSecretPath, id, new[] { scope });
 
                 if (_service == null)
                 {
