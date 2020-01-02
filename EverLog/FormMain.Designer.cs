@@ -103,7 +103,7 @@
             this.txtYear.Name = "txtYear";
             this.txtYear.Size = new System.Drawing.Size(41, 20);
             this.txtYear.TabIndex = 115;
-            this.txtYear.Text = "2019";
+            this.txtYear.Text = "2020";
             this.txtYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblYear

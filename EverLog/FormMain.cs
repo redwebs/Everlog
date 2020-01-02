@@ -21,6 +21,7 @@ namespace EverLog
             InitializeComponent();
             XmlConfigurator.Configure();
             YearList.ClientSecretPath = ClientSecretPath;
+            txtYear.Text = DateTime.Now.Year.ToString();
             Log.Debug("Started program Everlog");
         }
 
@@ -38,7 +39,7 @@ namespace EverLog
                     txtLog.Text += "Invalid year number\r\n";
                     return;
                 }
-                _calendarItems = YearList.GetList(2019, txtGmail.Text, txtHolidayCalendar.Text, chkPersonal.Checked, chkHolidays.Checked);
+                _calendarItems = YearList.GetList(year, txtGmail.Text, txtHolidayCalendar.Text, chkPersonal.Checked, chkHolidays.Checked);
                 var everLog = GenEverLog.CreateYear(year, _calendarItems);
                 ClipboardHelper.CopyToClipboard(everLog.Item1.ToString(), everLog.Item2.ToString());
 
